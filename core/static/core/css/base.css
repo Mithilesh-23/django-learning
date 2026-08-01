@@ -1,0 +1,22 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+}
+
+main{
+    padding:30px;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:#1e293b;
+    color:white;
+    margin-top:40px;
+}
