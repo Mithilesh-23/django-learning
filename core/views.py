@@ -1,5 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from . models import Student, Teacher
+
+from . forms import StudentForm, TeacherForm
 
 def home(request):
     context = {
@@ -39,3 +42,67 @@ def team(request):
 
 def help(request):
     return HttpResponse("Help button 24/7")
+
+
+
+#######     Manual Way          \#####
+# # Student view 
+# def student_form(request):
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         age = request.POST.get("age")
+#         branch = request.POST.get("branch")
+#         email = request.POST.get("email")
+
+#         Student.objects.create(
+#             name = name,
+#             age = age,
+#             branch = branch,
+#             email = email
+#         )
+
+#         return redirect("student_form")
+
+#     return render(request, "core/student_form.html")
+
+def student_form(request):
+    if request.method == "POST":
+        form = StudentForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("student_form")
+    else:
+        form = StudentForm()
+
+    return render(request, "core/student_form.html", {"form":form})
+
+# def teacher_form(request):
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         subject = request.POST.get("subject")
+#         salary = request.POST.get("salary")
+#         email = request.POST.get("email")
+
+#         Teacher.objects.create(
+#             name = name,
+#             subject = subject,
+#             salary = salary,
+#             email = email
+#         )
+
+#         return redirect("teacher_form")
+
+#     return render(request, "core/teacher_form.html")
+
+def teacher_form(request):
+    if request.method == "POST":
+        form = TeacherForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("teacher_form")
+    else:
+        form = TeacherForm()
+
+    return render(request, "core/teacher_form.html", {"form":form})
