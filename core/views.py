@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from . models import Student, Teacher
 
 from . forms import StudentForm, TeacherForm
@@ -106,3 +106,29 @@ def teacher_form(request):
         form = TeacherForm()
 
     return render(request, "core/teacher_form.html", {"form":form})
+
+def student_list(request):
+    students = Student.objects.all()
+    context = {
+        "students" : students
+    }
+
+    return render(request, "core/student_list.html", context)
+
+def teacher_list(request):
+    teachers = Teacher.objects.all()
+    context = {
+        "teachers" : teachers
+    }
+
+    return render(request, "core/teacher_list.html", context)
+
+def student_delete(request, id):
+    student = get_object_or_404(Student, id=id)
+    student.delete()
+    return redirect("student_list")
+
+def teacher_delete(request, id):
+    teacher = get_object_or_404(Teacher, id=id)
+    teacher.delete()
+    return redirect("teacher_list")

@@ -1,0 +1,47 @@
+{% extends "core/base.html" %}
+
+{% block title %}
+Teachers
+{% endblock %}
+
+{% block content %}
+
+<h2>Teachers List</h2>
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Subject</th>
+    <th>Salary</th>
+    <th>Email</th>
+</tr>
+
+{% for teacher in teachers %}
+
+<tr>
+    <td>{{ teacher.id }}</td>
+    <td>{{ teacher.name }}</td>
+    <td>{{ teacher.subject }}</td>
+    <td>{{ teacher.salary }}</td>
+    <td>{{ teacher.email }}</td>
+    <td>
+    <a href="{% url 'teacher_delete' teacher.id %}">
+        Delete
+    </a>
+</tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="5">
+        No Teacher Found
+    </td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}
