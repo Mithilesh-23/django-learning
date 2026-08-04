@@ -132,3 +132,8 @@ def teacher_delete(request, id):
     teacher = get_object_or_404(Teacher, id=id)
     teacher.delete()
     return redirect("teacher_list")
+
+def student_update(request, id):
+    student = get_object_or_404(Student, id=id)
+    if request.method == "POST":
+        form = StudentForm(request.POST, instance=instance)
